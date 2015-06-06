@@ -25,12 +25,13 @@ import java.io.IOException;
 public class ConfigurationEsperNet extends Configuration.Builder {
 
     public ConfigurationEsperNet() throws IllegalAccessException, InstantiationException {
-        this.setName(Helix.botName);
+        this.setName(Helix.properties.getProperty("irc.nickname"));
         this.setFinger("VBot");
         this.setVersion("VBot");
         this.setRealName("VBot");
         this.setAutoNickChange(true);
-        this.setLogin("VBot");
+        this.setLogin(Helix.properties.getProperty("irc.nickserv.login"));
+        this.setNickservPassword(Helix.properties.getProperty("irc.nickserv.pw"));
         this.setServer("irc.esper.net", 6697);
         this.setSocketFactory(new UtilSSLSocketFactory().trustAllCertificates());
         this.addAutoJoinChannel("#Vigaro");
