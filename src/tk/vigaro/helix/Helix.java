@@ -1,9 +1,20 @@
 package tk.vigaro.helix;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.youtube.YouTube;
 import org.pircbotx.PircBotX;
 import tk.vigaro.helix.config.ConfigurationEsperNet;
 
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.GeneralSecurityException;
+import java.text.NumberFormat;
+import java.util.Properties;
 
 /**
  * Helix
@@ -21,15 +32,53 @@ import java.util.List;
  */
 public class Helix {
 
+    public static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    public static final JsonFactory JSON_FACTORY = new JacksonFactory();
+    public static final NumberFormat numberFormat = NumberFormat.getInstance();
+    public static GoogleCredential credential;
+
+    public static Properties properties = new Properties();
+    public static YouTube youtube;
+    public static YouTube.Search.List search;
     public static String botName = "VBot";
     public static String botPrefix = ".";
     public static String[] admins = {"Vigaro", "Vigaro|AFK"};
     public static PircBotX helix;
 
     public static void main(String[] args) throws Exception{
+        initializeProperties();
+        initializeGoogle();
+
         helix = new PircBotX(new ConfigurationEsperNet().buildConfiguration());
         helix.startBot();
 
+    }
+
+    private static void initializeGoogle() throws GeneralSecurityException, IOException {
+        credential = new GoogleCredential.Builder()
+                .setTransport(HTTP_TRANSPORT)
+                .setJsonFactory(JSON_FACTORY)
+                .build();
+
+        youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName("VBot").build();
+    }
+
+    private static void initializeProperties(){
+        InputStream in = null;
+        try {
+            in = new FileInputStream("helix.properties");
+            properties.load(in);
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

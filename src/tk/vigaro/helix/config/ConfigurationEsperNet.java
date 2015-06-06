@@ -3,7 +3,6 @@ package tk.vigaro.helix.config;
 import com.google.common.reflect.ClassPath;
 import org.pircbotx.Configuration;
 import org.pircbotx.UtilSSLSocketFactory;
-import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import tk.vigaro.helix.Helix;
 
@@ -24,6 +23,7 @@ import java.io.IOException;
  * License along with this library.
  **/
 public class ConfigurationEsperNet extends Configuration.Builder {
+
     public ConfigurationEsperNet() throws IllegalAccessException, InstantiationException {
         this.setName(Helix.botName);
         this.setFinger("VBot");
