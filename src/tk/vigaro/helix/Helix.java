@@ -7,8 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**

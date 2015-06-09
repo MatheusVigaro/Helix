@@ -1,7 +1,6 @@
 package tk.vigaro.helix.config;
 
 import com.google.common.reflect.ClassPath;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import org.json.JSONArray;
 import org.pircbotx.Configuration;
 import org.pircbotx.UtilSSLSocketFactory;
@@ -36,6 +35,7 @@ public class ConfigurationEsperNet extends Configuration.Builder {
         this.setNickservPassword(Helix.properties.getProperty("irc.nickserv.pw"));
         this.setServer("irc.esper.net", 6697);
         this.setSocketFactory(new UtilSSLSocketFactory().trustAllCertificates());
+        this.setAutoReconnect(true);
         JSONArray chans = new JSONArray(Helix.properties.getProperty("irc.channels"));
         for (int i = 0; i < chans.length();i++) this.addAutoJoinChannel(chans.getString(i));
         ClassPath classPath = null;
