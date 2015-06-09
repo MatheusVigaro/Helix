@@ -26,12 +26,11 @@ import java.util.Arrays;
  * License along with this library.
  **/
 public class ListenerCommandYouTubeSearch extends ListenerAdapter{
-    static final Character[] valid = {'1', '2', '3', '4', '5','6', '6', '8', '9'};
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
         String msg = event.getMessage();
-        if (msg.startsWith(Helix.botPrefix + "yt") && ((msg.length() > 4 && msg.charAt(3) == ' ') || (msg.length() > 5 && Arrays.asList(valid).contains(msg.charAt(3)) && msg.charAt(4) == ' '))){
+        if (msg.startsWith(Helix.botPrefix + "yt") && ((msg.length() > 4 && msg.charAt(3) == ' ') || (msg.length() > 5 && Arrays.asList(Helix.valid).contains(msg.charAt(3)) && msg.charAt(4) == ' '))){
             String q = msg.split(" ", 2)[1];
             String max = msg.charAt(3) == ' ' ? "1" : String.valueOf(msg.charAt(3));
 

@@ -32,6 +32,7 @@ public class Helix {
     public static String botPrefix = ".";
     public static String[] admins = {"vigaro"};
     public static PircBotX helix;
+    public static final Character[] valid = {'1', '2', '3', '4', '5','6', '6', '8', '9'};
 
     public static void main(String[] args) throws Exception{
         initializeProperties();
