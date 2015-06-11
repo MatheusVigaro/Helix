@@ -40,7 +40,7 @@ public class ListenerLinkYouTube extends ListenerAdapter {
 
             if (id.length() != 11) continue;
 
-            JSONObject v = new JSONObject(Util.getHTTPResponse(String.format("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics&id=%s&key=%s", id, Helix.googleKey))).getJSONArray("items").getJSONObject(0);
+            JSONObject v = new JSONObject(Util.getHTTPResponse(String.format("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics&id=%s&key=%s", id, Helix.properties.getProperty("google.apikey")))).getJSONArray("items").getJSONObject(0);
 
             JSONObject snip = v.getJSONObject("snippet");
             JSONObject stat = v.getJSONObject("statistics");

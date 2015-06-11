@@ -30,8 +30,8 @@ public class ListenerCommandCheckMinecraftAccount extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        if (event.getMessage().startsWith(Helix.botPrefix + Commands.checkMinecraftAccount) && event.getMessage().length() > (Commands.checkMinecraftAccount.length() + 2)) {
-            String a = event.getMessage().split(Helix.botPrefix + "check ", 2)[1].replace(" ", "");
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.checkMinecraftAccount + " ") && event.getMessage().length() > (Commands.checkMinecraftAccount.length() + 2)) {
+            String a = event.getMessage().split(" ", 2)[1].replace(" ", "");
             String m;
             try {
                 JSONObject r = new JSONObject(Util.getHTTPResponse("https://api.mojang.com/users/profiles/minecraft/" + URLEncoder.encode(a, "UTF-8")));
