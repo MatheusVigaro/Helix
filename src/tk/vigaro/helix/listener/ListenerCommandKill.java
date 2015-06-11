@@ -1,4 +1,11 @@
-package tk.vigaro.helix;
+package tk.vigaro.helix.listener;
+
+import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.events.MessageEvent;
+import tk.vigaro.helix.Commands;
+import tk.vigaro.helix.Helix;
+
+import java.util.Arrays;
 
 /**
  * Helix
@@ -14,13 +21,13 @@ package tk.vigaro.helix;
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.
  **/
-public class Commands {
-    public static final String addCmd = "addcmd";
-    public static final String youTubeSearch = "yt";
-    public static final String googleSearch = "g";
-    public static final String test = "test";
-    public static final String checkMinecraftAccount = "check";
-    public static final String shorthenLink = "short";
-    public static final String kill = "kill";
+public class ListenerCommandKill extends ListenerAdapter {
 
+    @Override
+    public void onMessage(MessageEvent event) throws Exception {
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.kill) && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && event.getUser().isVerified()) {
+            event.getBot().stopBotReconnect();
+            event.getBot().sendIRC().quitServer("Killed by: " + event.getUser().getNick());
+        }
+    }
 }

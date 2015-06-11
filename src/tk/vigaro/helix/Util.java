@@ -41,6 +41,21 @@ public class Util {
         return response.toString();
     }
 
+    public static String getHTTPResponseWithCustomUserAgent(String url, String useragent) throws IOException {
+        HttpURLConnection con = (HttpURLConnection)(new URL(url)).openConnection();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String l;
+
+        while ((l = reader.readLine()) != null){
+            response.append(l);
+            response.append('\r');
+        }
+
+        reader.close();
+        return response.toString();
+    }
+
     public static String parseYouTubeTime(String date){
         regexMap.put("PT(\\d\\d)S", "00:$1");
         regexMap.put("PT(\\d\\d)M", "$1:00");

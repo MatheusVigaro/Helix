@@ -33,6 +33,7 @@ public class Helix {
     public static final Character[] valid = {'1', '2', '3', '4', '5','6', '6', '8', '9'};
 
     public static void main(String[] args) throws Exception{
+        System.setProperty("http.agent", "Wget/1.9.1");
         initializeProperties();
         helix = new PircBotX(new ConfigurationEsperNet().buildConfiguration());
         helix.startBot();
