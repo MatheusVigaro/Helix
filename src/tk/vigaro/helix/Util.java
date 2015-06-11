@@ -2,10 +2,8 @@ package tk.vigaro.helix;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -26,9 +24,7 @@ import java.util.regex.Pattern;
  **/
 public class Util {
 
-    private static HashMap<String, String> regexMap = new HashMap<String, String>();
-    private static String regex2two = "(?<=[^\\d])(\\d)(?=[^\\d])";
-    private static String two = "0$1";
+    private static final HashMap<String, String> regexMap = new HashMap<String, String>();
 
     public static String getHTTPResponse(String url) throws IOException {
         HttpURLConnection con = (HttpURLConnection)(new URL(url)).openConnection();
@@ -54,8 +50,8 @@ public class Util {
         regexMap.put("PT(\\d\\d)H(\\d\\d)M", "$1:$2:00");
         regexMap.put("PT(\\d\\d)H(\\d\\d)M(\\d\\d)S", "$1:$2:$3");
 
-        String[] dates = { "PT1S", "PT1M", "PT1H", "PT1M1S", "PT1H1S", "PT1H1M", "PT1H1M1S", "PT10H1M13S", "PT10H1S", "PT1M11S" };
-
+        String regex2two = "(?<=[^\\d])(\\d)(?=[^\\d])";
+        String two = "0$1";
         String d = date.replaceAll(regex2two, two);
         String regex = getRegex(d);
         return d.replaceAll(regex, regexMap.get(regex));

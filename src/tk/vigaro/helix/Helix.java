@@ -28,7 +28,7 @@ public class Helix {
     public static final NumberFormat numberFormat = NumberFormat.getInstance();
 
     public static String googleKey;
-    public static Properties properties = new Properties();
+    public static final Properties properties = new Properties();
     public static String botPrefix = ".";
     public static String[] admins = {"vigaro"};
     public static PircBotX helix;

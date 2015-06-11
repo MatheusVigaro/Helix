@@ -40,9 +40,7 @@ public class ListenerCommandCheckMinecraftAccount extends ListenerAdapter {
 
                 JSONArray h = new JSONArray(Util.getHTTPResponse("https://api.mojang.com/user/profiles/" + id + "/names"));
 
-                m = "Username: " + Colors.GREEN + name + Colors.NORMAL + " UUID: " + Colors.MAGENTA + id + Colors.NORMAL + " Username history: ";
-
-                m += Colors.BLUE + h.getJSONObject(0).getString("name") + Colors.NORMAL;
+                m = "Username: " + Colors.GREEN + name + Colors.NORMAL + " UUID: " + Colors.MAGENTA + id + Colors.NORMAL + " Username history: " + Colors.BLUE + h.getJSONObject(0).getString("name") + Colors.NORMAL;
 
                 for (int i = 1; i < h.length(); i++){
                     m += ", " + Colors.BLUE + h.getJSONObject(i).getString("name") + Colors.NORMAL;
