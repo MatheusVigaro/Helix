@@ -52,7 +52,7 @@ public class ListenerCommandYouTubeSearch extends ListenerAdapter{
 
                 views = Helix.numberFormat.format(Integer.parseInt(stat.getString("viewCount")));
                 dislike = Helix.numberFormat.format(Integer.parseInt(stat.getString("dislikeCount")));
-                like = Helix.numberFormat.format(Integer.parseInt(stat.getString("dislikeCount")));
+                like = Helix.numberFormat.format(Integer.parseInt(stat.getString("likeCount")));
                 len = v.getJSONObject("contentDetails").getString("duration");
                 m = Colors.BOLD + Colors.BLACK + ",00[You" + Colors.WHITE + ",04Tube]" + Colors.NORMAL + " " + snip.getString("title") + " [" + Colors.OLIVE + (len.equals("PT0S")? "Live" : Util.parseYouTubeTime(len)) + Colors.NORMAL + "] [" + Colors.TEAL + views + Colors.NORMAL + "] [" + Colors.DARK_GREEN + "+" + like + Colors.NORMAL + "] [" + Colors.RED + "-" + dislike + Colors.NORMAL + "] [" + Colors.MAGENTA + snip.getString("channelTitle") + Colors.NORMAL + "] http://youtu.be/" + v.getString("id");
             } catch (JSONException e){

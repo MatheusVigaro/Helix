@@ -47,7 +47,7 @@ public class ListenerLinkYouTube extends ListenerAdapter {
 
             String views = Helix.numberFormat.format(Integer.parseInt(stat.getString("viewCount")));
             String dislike = Helix.numberFormat.format(Integer.parseInt(stat.getString("dislikeCount")));
-            String like = Helix.numberFormat.format(Integer.parseInt(stat.getString("dislikeCount")));
+            String like = Helix.numberFormat.format(Integer.parseInt(stat.getString("likeCount")));
             String len = v.getJSONObject("contentDetails").getString("duration");
 
             String m = Colors.BOLD + Colors.BLACK + ",00[You" + Colors.WHITE + ",04Tube]" + Colors.NORMAL + " " + snip.getString("title") + " [" + Colors.OLIVE + (len.equals("PT0S")? "Live" : Util.parseYouTubeTime(len)) + Colors.NORMAL + "] [" + Colors.TEAL + views + Colors.NORMAL + "] [" + Colors.DARK_GREEN + "+" + like + Colors.NORMAL + "] [" + Colors.RED + "-" + dislike + Colors.NORMAL + "] [" + Colors.MAGENTA + snip.getString("channelTitle") + Colors.NORMAL + "]";
