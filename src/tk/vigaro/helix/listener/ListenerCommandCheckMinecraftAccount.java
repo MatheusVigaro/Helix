@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.pircbotx.Colors;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
+import tk.vigaro.helix.Commands;
 import tk.vigaro.helix.Helix;
 import tk.vigaro.helix.Util;
 
@@ -29,7 +30,7 @@ public class ListenerCommandCheckMinecraftAccount extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        if (event.getMessage().startsWith(Helix.botPrefix + "check ") && event.getMessage().length() > 7) {
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.checkMinecraftAccount) && event.getMessage().length() > (Commands.checkMinecraftAccount.length() + 2)) {
             String a = event.getMessage().split(Helix.botPrefix + "check ", 2)[1].replace(" ", "");
             String m;
             try {

@@ -26,8 +26,6 @@ import java.util.Properties;
 public class Helix {
 
     public static final NumberFormat numberFormat = NumberFormat.getInstance();
-
-    public static String googleKey;
     public static final Properties properties = new Properties();
     public static String botPrefix = ".";
     public static String[] admins = {"vigaro"};
@@ -36,7 +34,6 @@ public class Helix {
 
     public static void main(String[] args) throws Exception{
         initializeProperties();
-        googleKey = properties.getProperty("google.apikey");
         helix = new PircBotX(new ConfigurationEsperNet().buildConfiguration());
         helix.startBot();
 

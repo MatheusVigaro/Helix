@@ -1,6 +1,4 @@
-package tk.vigaro.helix.listener;
-
-import org.pircbotx.hooks.ListenerAdapter;
+package tk.vigaro.helix;
 
 /**
  * Helix
@@ -16,5 +14,12 @@ import org.pircbotx.hooks.ListenerAdapter;
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.
  **/
-public class ListenerCommandHangman extends ListenerAdapter {
+public class Commands {
+    public static final String addCmd = "addcmd";
+    public static final String youTubeSearch = "yt";
+    public static final String googleSearch = "g";
+    public static final String test = "test";
+    public static final String checkMinecraftAccount = "check";
+    public static final String shorthenLink = "shorten";
+
 }

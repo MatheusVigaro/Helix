@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.pircbotx.Colors;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
+import tk.vigaro.helix.Commands;
 import tk.vigaro.helix.Helix;
 import tk.vigaro.helix.Util;
 
@@ -30,12 +31,12 @@ public class ListenerCommandYouTubeSearch extends ListenerAdapter{
     @Override
     public void onMessage(MessageEvent event) throws Exception {
         String msg = event.getMessage();
-        if (msg.startsWith(Helix.botPrefix + "yt") && ((msg.length() > 4 && msg.charAt(3) == ' ') || (msg.length() > 5 && Arrays.asList(Helix.valid).contains(msg.charAt(3)) && msg.charAt(4) == ' '))){
+        if (msg.startsWith(Helix.botPrefix + Commands.youTubeSearch) && ((msg.length() > (Commands.youTubeSearch.length()+2) && msg.charAt(Commands.youTubeSearch.length()+1) == ' ') || (msg.length() > (Commands.youTubeSearch.length()+3) && Arrays.asList(Helix.valid).contains(msg.charAt(Commands.youTubeSearch.length()+1)) && msg.charAt(Commands.youTubeSearch.length()+2) == ' '))){
             String q = msg.split(" ", 2)[1];
             String max = msg.charAt(3) == ' ' ? "1" : String.valueOf(msg.charAt(3));
 
 
-            String a = String.format("https://www.googleapis.com/youtube/v3/search?part=id&maxResults=%s&regionCode=br&type=video&q=%s&key=%s", max, URLEncoder.encode(q, "UTF-8"), Helix.googleKey);
+            String a = String.format("https://www.googleapis.com/youtube/v3/search?part=id&maxResults=%s&regionCode=br&type=video&q=%s&key=%s", max, URLEncoder.encode(q, "UTF-8"), Helix.properties.get("google.apikey"));
 
             JSONObject v;
             JSONObject snip;
@@ -45,7 +46,7 @@ public class ListenerCommandYouTubeSearch extends ListenerAdapter{
             String len;
             String m;
             try {
-                v = new JSONObject(Util.getHTTPResponse(String.format("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics&id=%s&key=%s", (new JSONObject(Util.getHTTPResponse(a))).getJSONArray("items").getJSONObject(Integer.valueOf(max) - 1).getJSONObject("id").getString("videoId"), Helix.googleKey))).getJSONArray("items").getJSONObject(0);
+                v = new JSONObject(Util.getHTTPResponse(String.format("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics&id=%s&key=%s", (new JSONObject(Util.getHTTPResponse(a))).getJSONArray("items").getJSONObject(Integer.valueOf(max) - 1).getJSONObject("id").getString("videoId"), Helix.properties.get("google.apikey")))).getJSONArray("items").getJSONObject(0);
 
                 snip = v.getJSONObject("snippet");
                 JSONObject stat = v.getJSONObject("statistics");

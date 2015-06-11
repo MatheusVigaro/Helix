@@ -2,6 +2,7 @@ package tk.vigaro.helix.listener;
 
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.types.GenericMessageEvent;
+import tk.vigaro.helix.Commands;
 import tk.vigaro.helix.Helix;
 
 /**
@@ -22,7 +23,7 @@ public class ListenerCommandTest extends ListenerAdapter {
 
     @Override
     public void onGenericMessage(GenericMessageEvent event) {
-        if (event.getMessage().startsWith(Helix.botPrefix + "test")){
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.test)){
             event.respond("This is a test!");
         }
     }
