@@ -1,6 +1,8 @@
 package tk.vigaro.helix;
 
+import org.json.JSONObject;
 import org.pircbotx.PircBotX;
+import org.pircbotx.hooks.managers.BackgroundListenerManager;
 import tk.vigaro.helix.config.ConfigurationEsperNet;
 
 import java.io.FileInputStream;
@@ -27,10 +29,12 @@ public class Helix {
 
     public static final NumberFormat numberFormat = NumberFormat.getInstance();
     public static final Properties properties = new Properties();
+    public static JSONObject seen;
     public static String botPrefix = ".";
     public static String[] admins = {"vigaro"};
     public static PircBotX helix;
     public static final Character[] valid = {'1', '2', '3', '4', '5','6', '6', '8', '9'};
+    public static BackgroundListenerManager backgroundListenerManager = new BackgroundListenerManager();
 
     public static void main(String[] args) throws Exception{
         System.setProperty("http.agent", "Wget/1.9.1");

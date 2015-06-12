@@ -26,7 +26,7 @@ import java.io.IOException;
 public class ConfigurationEsperNet extends Configuration.Builder {
 
     public ConfigurationEsperNet() throws IllegalAccessException, InstantiationException {
-        this.setName(Helix.properties.getProperty("irc.nickname"));
+        this.setName("true".equals(System.getProperty("helix.isDebug")) ? Helix.properties.getProperty("irc.nickname") + "|debug" : Helix.properties.getProperty("irc.nickname"));
         this.setFinger("VBot");
         this.setVersion("VBot");
         this.setRealName("VBot");
@@ -38,6 +38,7 @@ public class ConfigurationEsperNet extends Configuration.Builder {
         this.setAutoReconnect(true);
         JSONArray chans = new JSONArray(Helix.properties.getProperty("irc.channels"));
         for (int i = 0; i < chans.length();i++) this.addAutoJoinChannel(chans.getString(i));
+        this.setListenerManager(Helix.backgroundListenerManager);
         ClassPath classPath = null;
         try {
             classPath = ClassPath.from(Thread.currentThread().getContextClassLoader());
@@ -46,6 +47,9 @@ public class ConfigurationEsperNet extends Configuration.Builder {
         }
         for (ClassPath.ClassInfo classInfo : classPath.getTopLevelClasses("tk.vigaro.helix.listener")) {
             this.addListener(((Class<? extends ListenerAdapter>) classInfo.load()).newInstance());
+        }
+        for (ClassPath.ClassInfo classInfo : classPath.getTopLevelClasses("tk.vigaro.helix.backgroundlistener")) {
+            Helix.backgroundListenerManager.addListener(((Class<? extends ListenerAdapter>) classInfo.load()).newInstance(), true);
         }
     }
 }
