@@ -51,7 +51,7 @@ public class ListenerCommandYouTubeSearch extends ListenerAdapter{
                 snip = v.getJSONObject("snippet");
                 JSONObject stat = v.getJSONObject("statistics");
 
-                views = Helix.numberFormat.format(Integer.parseInt(stat.getString("viewCount")));
+                views = Helix.numberFormat.format(Long.parseLong(stat.getString("viewCount")));
                 dislike = Helix.numberFormat.format(Integer.parseInt(stat.getString("dislikeCount")));
                 like = Helix.numberFormat.format(Integer.parseInt(stat.getString("likeCount")));
                 len = v.getJSONObject("contentDetails").getString("duration");

@@ -45,7 +45,7 @@ public class ListenerLinkYouTube extends ListenerAdapter {
             JSONObject snip = v.getJSONObject("snippet");
             JSONObject stat = v.getJSONObject("statistics");
 
-            String views = Helix.numberFormat.format(Integer.parseInt(stat.getString("viewCount")));
+            String views = Helix.numberFormat.format(Long.parseLong(stat.getString("viewCount")));
             String dislike = Helix.numberFormat.format(Integer.parseInt(stat.getString("dislikeCount")));
             String like = Helix.numberFormat.format(Integer.parseInt(stat.getString("likeCount")));
             String len = v.getJSONObject("contentDetails").getString("duration");
