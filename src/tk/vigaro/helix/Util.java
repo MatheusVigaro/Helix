@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Helix
@@ -28,22 +29,7 @@ public class Util {
 
     public static String getHTTPResponse(String url) throws IOException {
         HttpURLConnection con = (HttpURLConnection)(new URL(url)).openConnection();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String l;
-
-        while ((l = reader.readLine()) != null){
-            response.append(l);
-            response.append('\r');
-        }
-
-        reader.close();
-        return response.toString();
-    }
-
-    public static String getHTTPResponseWithCustomUserAgent(String url, String useragent) throws IOException {
-        HttpURLConnection con = (HttpURLConnection)(new URL(url)).openConnection();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader("gzip".equals(con.getContentEncoding()) ? new GZIPInputStream(con.getInputStream()) : con.getInputStream()));
         StringBuilder response = new StringBuilder();
         String l;
 
