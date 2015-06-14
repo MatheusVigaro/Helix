@@ -3,6 +3,9 @@ package tk.vigaro.helix;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
+import org.pircbotx.User;
+import org.pircbotx.hooks.WaitForQueue;
+import org.pircbotx.hooks.events.NoticeEvent;
 import org.xml.sax.InputSource;
 
 import java.io.BufferedReader;
@@ -73,5 +76,22 @@ public class Util {
             if (Pattern.matches(r, date))
                 return r;
         return null;
+    }
+
+    public static boolean isVerified(User user) throws InterruptedException {
+        String nick = user.getNick();
+        WaitForQueue queue = new WaitForQueue(Helix.helix);
+        Helix.helix.sendIRC().message("NickServ", "ACC " + nick);
+        while (true) {
+            NoticeEvent event = queue.waitFor(NoticeEvent.class);
+            if (event.getUser().getNick().equals("NickServ")) {
+                if (event.getMessage().startsWith(nick + " ACC 3 ")) {
+                    return true;
+                } else if (event.getMessage().startsWith(nick + " ACC ")) {
+                    return false;
+                }
+
+            }
+        }
     }
 }
