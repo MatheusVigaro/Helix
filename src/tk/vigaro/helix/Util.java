@@ -1,5 +1,10 @@
 package tk.vigaro.helix;
 
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.SyndFeedInput;
+import org.xml.sax.InputSource;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,6 +45,11 @@ public class Util {
 
         reader.close();
         return response.toString();
+    }
+
+    public static SyndFeed getSyndFeed(String url) throws IOException, FeedException {
+        HttpURLConnection con = (HttpURLConnection)(new URL(url)).openConnection();
+        return new SyndFeedInput().build(new InputSource("gzip".equals(con.getContentEncoding()) ? new GZIPInputStream(con.getInputStream()) : con.getInputStream()));
     }
 
     public static String parseYouTubeTime(String date){

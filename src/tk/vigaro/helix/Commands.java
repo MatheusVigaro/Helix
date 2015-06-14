@@ -23,4 +23,5 @@ public class Commands {
     public static final String shorthenLink = "short";
     public static final String kill = "kill";
     public static final String seen = "seen";
+    public static final String anime = "anime";
 }
