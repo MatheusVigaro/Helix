@@ -8,7 +8,10 @@ import tk.vigaro.helix.config.ConfigurationEsperNet;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -29,6 +32,7 @@ public class Helix {
 
     public static final NumberFormat numberFormat = NumberFormat.getInstance();
     public static final Properties properties = new Properties();
+    public static List<String> hardCommands = new ArrayList<String>();
 //    public static InetAddress inetAddress;
     public static JSONObject seen;
     public static String botPrefix = ".";
@@ -41,6 +45,7 @@ public class Helix {
     public static void main(String[] args) throws Exception{
         System.setProperty("http.agent", "Wget/1.9.1");
         initializeProperties();
+        for (Field field : Commands.class.getFields()) hardCommands.add((String)field.get(""));
 //        inetAddress = getLocalAddress();
         helix = new PircBotX(new ConfigurationEsperNet().buildConfiguration());
         helix.startBot();
