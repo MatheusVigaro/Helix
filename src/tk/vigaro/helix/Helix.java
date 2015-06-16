@@ -33,6 +33,7 @@ public class Helix {
     public static final NumberFormat numberFormat = NumberFormat.getInstance();
     public static final Properties properties = new Properties();
     public static List<String> hardCommands = new ArrayList<String>();
+    public static JSONObject commands = new JSONObject();
 //    public static InetAddress inetAddress;
     public static JSONObject seen;
     public static String botPrefix = ".";
