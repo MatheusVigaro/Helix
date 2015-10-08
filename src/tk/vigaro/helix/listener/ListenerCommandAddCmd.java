@@ -48,6 +48,14 @@ public class ListenerCommandAddCmd extends ListenerAdapter {
             }
             Helix.commands.put(s[1].toLowerCase(), s[2]);
         }
+        try {
+            BufferedWriter wr = new BufferedWriter(new FileWriter("commands.json", false));
+            wr.write(Helix.commands.toString(4));
+            wr.flush();
+            wr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
