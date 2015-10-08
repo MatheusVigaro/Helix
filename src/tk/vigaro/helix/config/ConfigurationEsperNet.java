@@ -25,7 +25,7 @@ import java.io.IOException;
  **/
 public class ConfigurationEsperNet extends Configuration.Builder {
 
-    public ConfigurationEsperNet() throws IllegalAccessException, InstantiationException {
+    public ConfigurationEsperNet() throws IllegalAccessException, InstantiationException, IOException {
         this.setName("true".equals(System.getProperty("helix.isDebug")) ? Helix.properties.getProperty("irc.nickname") + "|debug" : Helix.properties.getProperty("irc.nickname"));
         this.setFinger("VBot");
         this.setVersion("VBot");
@@ -39,12 +39,7 @@ public class ConfigurationEsperNet extends Configuration.Builder {
         JSONArray chans = new JSONArray(Helix.properties.getProperty("irc.channels"));
         for (int i = 0; i < chans.length();i++) this.addAutoJoinChannel(chans.getString(i));
         this.setListenerManager(Helix.backgroundListenerManager);
-        ClassPath classPath = null;
-        try {
-            classPath = ClassPath.from(Thread.currentThread().getContextClassLoader());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ClassPath classPath = ClassPath.from(Thread.currentThread().getContextClassLoader());
         for (ClassPath.ClassInfo classInfo : classPath.getTopLevelClasses("tk.vigaro.helix.listener")) {
             this.addListener(((Class<? extends ListenerAdapter>) classInfo.load()).newInstance());
         }

@@ -1,11 +1,10 @@
 package tk.vigaro.helix.listener;
 
+import org.apache.commons.lang3.StringUtils;
+import org.pircbotx.Colors;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.PrivateMessageEvent;
+import org.pircbotx.hooks.events.MessageEvent;
 import tk.vigaro.helix.Helix;
-import tk.vigaro.helix.Util;
-
-import java.util.Arrays;
 
 /**
  * Helix
@@ -21,13 +20,18 @@ import java.util.Arrays;
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.
  **/
-public class LIstenerPrivateMessage extends ListenerAdapter {
+public class ListenerCommandCustom extends ListenerAdapter {
 
     @Override
-    public void onPrivateMessage(PrivateMessageEvent event) throws Exception {
-        if (event.getMessage().contains(" ") && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && Util.isVerified(event.getUser())) {
-            String m[] = event.getMessage().split(" ", 2);
-            event.getBot().sendIRC().message(m[0], m[1]);
+    public void onMessage(MessageEvent event) throws Exception {
+        if (event.getMessage().startsWith(Helix.botPrefix)) {
+            String[] s = event.getMessage().split(" ", 2);
+            String command = s[0].substring(1).toLowerCase();
+            if (Helix.commands.has(command)) {
+                String m = s.length > 1 ? Colors.BOLD + StringUtils.join(s[1].split(" ")) + Colors.NORMAL + ": " + Helix.commands.getString(command) : Helix.commands.getString(command);
+                event.getChannel().send().message(m);
+
+            }
         }
     }
 }

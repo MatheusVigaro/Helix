@@ -4,6 +4,7 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import tk.vigaro.helix.Commands;
 import tk.vigaro.helix.Helix;
+import tk.vigaro.helix.Util;
 
 import java.util.Arrays;
 
@@ -25,7 +26,7 @@ public class ListenerCommandKill extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        if (event.getMessage().startsWith(Helix.botPrefix + Commands.kill) && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && event.getUser().isVerified()) {
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.kill) && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && Util.isVerified(event.getUser())) {
             event.getBot().stopBotReconnect();
             event.getBot().sendIRC().quitServer("Killed by: " + event.getUser().getNick());
         }
