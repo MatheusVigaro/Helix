@@ -1,4 +1,4 @@
-package tk.vigaro.helix;
+package tk.vigaro.helix.listener.src.tk.vigaro.helix;
 
 /**
  * Helix
@@ -23,9 +23,4 @@ public class Commands {
     public static final String shorthenLink = "short";
     public static final String kill = "kill";
     public static final String seen = "seen";
-    public static final String anime = "anime";
-    public static final String nick = "nick";
-    public static final String forca = "forca";
-    public static final String letra = "letra";
-    public static final String palavra = "palavra";
 }

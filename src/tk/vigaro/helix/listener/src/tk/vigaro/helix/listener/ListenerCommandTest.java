@@ -1,4 +1,9 @@
-package tk.vigaro.helix;
+package tk.vigaro.helix.listener.src.tk.vigaro.helix.listener;
+
+import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.types.GenericMessageEvent;
+import tk.vigaro.helix.listener.src.tk.vigaro.helix.Commands;
+import tk.vigaro.helix.listener.src.tk.vigaro.helix.Helix;
 
 /**
  * Helix
@@ -14,18 +19,12 @@ package tk.vigaro.helix;
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.
  **/
-public class Commands {
-    public static final String addCmd = "addcmd";
-    public static final String youTubeSearch = "yt";
-    public static final String googleSearch = "g";
-    public static final String test = "test";
-    public static final String checkMinecraftAccount = "check";
-    public static final String shorthenLink = "short";
-    public static final String kill = "kill";
-    public static final String seen = "seen";
-    public static final String anime = "anime";
-    public static final String nick = "nick";
-    public static final String forca = "forca";
-    public static final String letra = "letra";
-    public static final String palavra = "palavra";
+public class ListenerCommandTest extends ListenerAdapter {
+
+    @Override
+    public void onGenericMessage(GenericMessageEvent event) {
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.test)){
+            event.respond("This is a test!");
+        }
+    }
 }
