@@ -26,7 +26,7 @@ public class ListenerLinkYouTube extends ListenerAdapter {
     @Override
     public void onMessage(MessageEvent event) throws Exception {
         for (String word : event.getMessage().split(" ")){
-            String id = "";
+            String id;
             if (word.contains("youtube.com/watch?v=")){
                 String[] a = word.split("youtube\\.com/watch\\?v=");
                 id = a[a.length-1];
@@ -38,7 +38,9 @@ public class ListenerLinkYouTube extends ListenerAdapter {
                 continue;
             }
 
-            if (id.length() != 11) continue;
+            if (id.length() < 11) {continue;} else {
+                id = id.substring(0, 11);
+            }
 
             JSONObject v = new JSONObject(Util.getHTTPResponse(String.format("https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,statistics&id=%s&key=%s", id, Helix.properties.getProperty("google.apikey")))).getJSONArray("items").getJSONObject(0);
 
