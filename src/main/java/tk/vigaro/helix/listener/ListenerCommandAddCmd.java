@@ -1,6 +1,7 @@
 package tk.vigaro.helix.listener;
 
 import org.json.JSONObject;
+import org.pircbotx.Colors;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.DisconnectEvent;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -47,6 +48,17 @@ public class ListenerCommandAddCmd extends ListenerAdapter {
                 return;
             }
             Helix.commands.put(s[1].toLowerCase(), s[2]);
+
+            try {
+                BufferedWriter wr = new BufferedWriter(new FileWriter("commands.json", false));
+                wr.write(Helix.commands.toString(4));
+                wr.flush();
+                wr.close();
+            } catch (IOException e) {
+                event.respond(Colors.BOLD + Colors.MAGENTA + "Warning! Failed to save commands.");
+                e.printStackTrace();
+            }
+
         }
     }
 
