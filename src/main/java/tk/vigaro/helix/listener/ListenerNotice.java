@@ -25,7 +25,7 @@ public class ListenerNotice extends ListenerAdapter {
 
     @Override
     public void onNotice(NoticeEvent event) throws Exception {
-        if (event.getChannel() == null && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && Util.isVerified(event.getUser())) {
+        if (event.getChannel() == null && !event.getUser().getNick().contains(".") && !event.getUser().getNick().endsWith("Serv") && Arrays.asList(Helix.admins).contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
             event.getBot().sendRaw().rawLine(event.getNotice());
         }
     }

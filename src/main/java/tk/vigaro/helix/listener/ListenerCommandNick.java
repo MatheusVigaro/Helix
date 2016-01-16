@@ -30,7 +30,7 @@ public class ListenerCommandNick extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        if (event.getMessage().startsWith(Helix.botPrefix + Commands.nick + " ") && event.getMessage().length() > (Commands.nick.length() + 2) && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && Util.isVerified(event.getUser())) {
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.nick + " ") && event.getMessage().length() > (Commands.nick.length() + 2) && Arrays.asList(Helix.admins).contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
             String newNick = event.getMessage().split(" ", 2)[1];
             WaitForQueue queue = new WaitForQueue(event.getBot());
             event.getBot().sendIRC().changeNick(newNick);
