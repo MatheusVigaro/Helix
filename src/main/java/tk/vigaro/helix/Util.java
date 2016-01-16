@@ -3,6 +3,7 @@ package tk.vigaro.helix;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
+import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.WaitForQueue;
 import org.pircbotx.hooks.events.NoticeEvent;
@@ -33,7 +34,7 @@ import java.util.zip.GZIPInputStream;
  **/
 public class Util {
 
-    private static final HashMap<String, String> regexMap = new HashMap<String, String>();
+    private static final HashMap<String, String> regexMap = new HashMap<>();
 
     public static String getHTTPResponse(String url) throws IOException {
         HttpURLConnection con = (HttpURLConnection)(new URL(url)).openConnection();
@@ -82,7 +83,7 @@ public class Util {
         String nick = user.getNick();
         WaitForQueue queue = new WaitForQueue(Helix.helix);
         Helix.helix.sendIRC().message("NickServ", "ACC " + nick);
-        while (true) {
+        for (int i = 0; i < 50; i++) {
             NoticeEvent event = queue.waitFor(NoticeEvent.class);
             if (event.getUser().getNick().equals("NickServ")) {
                 if (event.getMessage().startsWith(nick + " ACC 3 ")) {
@@ -90,8 +91,24 @@ public class Util {
                 } else if (event.getMessage().startsWith(nick + " ACC ")) {
                     return false;
                 }
-
             }
         }
+        return false;
+    }
+
+    public static String getLogin(User user) throws InterruptedException {
+        String nick = user.getNick().toLowerCase();
+        WaitForQueue queue = new WaitForQueue(Helix.helix);
+        Helix.helix.sendIRC().message("NickServ", "INFO " + nick);
+        for (int i = 0; i < 50; i++) {
+            NoticeEvent event = queue.waitFor(NoticeEvent.class);
+            String m = Colors.removeFormattingAndColors(event.getNotice()).toLowerCase();
+            if (m.startsWith("information on " + nick + " (account ")) {
+                String[] n = m.split(" ");
+                String login = n[n.length-1];
+                return login.substring(0, login.length()-2);
+            } else if (m.startsWith(nick + " is not registered")) return null;
+        }
+        return null;
     }
 }

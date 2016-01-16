@@ -25,7 +25,7 @@ public class LIstenerPrivateMessage extends ListenerAdapter {
 
     @Override
     public void onPrivateMessage(PrivateMessageEvent event) throws Exception {
-        if (event.getMessage().contains(" ") && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && Util.isVerified(event.getUser())) {
+        if (event.getMessage().contains(" ") && !event.getUser().getNick().contains(".") && !event.getUser().getNick().endsWith("Serv") && Arrays.asList(Helix.admins).contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
             String m[] = event.getMessage().split(" ", 2);
             event.getBot().sendIRC().message(m[0], m[1]);
         }
