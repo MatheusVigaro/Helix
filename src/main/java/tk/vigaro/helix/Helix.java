@@ -73,22 +73,71 @@ public class Helix {
         }
     }
 
-    private static void initializeProperties(){
+    private static void initializeProperties() {
         InputStream in = null;
         try {
             in = new FileInputStream("helix.properties");
             properties.load(in);
         } catch (IOException e){
             e.printStackTrace();
+            createProperties();
+            initializeProperties();
         } finally {
             if (in != null) {
                 try {
                     in.close();
-                } catch (IOException e) {
+                }
+
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        try(FileWriter fw = new FileWriter("helix.properties", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter writer = new PrintWriter(bw)) {
+            if (properties.getProperty("irc.nickname") == null) {
+                writer.println("irc.nickname=InsertNameHere");
+            }
+            if (properties.getProperty("irc.nickserv.login") == null) {
+                writer.println("irc.nickserv.login=InsertNickservLoginHere");
+            }
+            if (properties.getProperty("irc.nickserv.pw") == null) {
+                writer.println("irc.nickserv.pw=InsertNickservPasswordHere");
+            }
+            if (properties.getProperty("irc.channels") == null) {
+                writer.println("irc.channels=[\"#VBot\"]");
+            }
+            if (properties.getProperty("google.apikey") == null) {
+                writer.println("google.apikey=InsertGoogleAPIKeyHere");
+            }
+            if (properties.getProperty("waaai.apikey") == null) {
+                writer.println("waaai.apikey=InsertwaaaiAPIKeyHere");
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void createProperties() {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("helix.properties", "UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        writer.println("irc.nickname=InsertNameHere");
+        writer.println("irc.nickserv.login=InsertNickservLoginHere");
+        writer.println("irc.nickserv.pw=InsertNickservPasswordHere");
+        writer.println("irc.channels=[\"#VBot\"]");
+        writer.println("google.apikey=InsertGoogleAPIKeyHere");
+        writer.println("waaai.apikey=InsertwaaaiAPIKeyHere");
+        writer.flush();
+        writer.close();
     }
 
     private static void initializeWatchlist() throws IOException {
