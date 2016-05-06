@@ -25,4 +25,7 @@ public class Commands {
     public static final String seen = "seen";
     public static final String anime = "anime";
     public static final String nick = "nick";
+    public static final String hangman = "forca";
+    public static final String letter = "letra";
+    public static final String word = "palavra";
 }

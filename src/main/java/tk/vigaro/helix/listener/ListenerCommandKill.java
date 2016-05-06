@@ -26,7 +26,7 @@ public class ListenerCommandKill extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        if (event.getMessage().startsWith(Helix.botPrefix + Commands.kill) && Arrays.asList(Helix.admins).contains(event.getUser().getLogin().toLowerCase()) && Util.isVerified(event.getUser())) {
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.kill) && Arrays.asList(Helix.admins).contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
             event.getBot().stopBotReconnect();
             event.getBot().sendIRC().quitServer("Killed by: " + event.getUser().getNick());
         }
