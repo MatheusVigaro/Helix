@@ -2,10 +2,9 @@ package tk.vigaro.helix.listener;
 
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.NoticeEvent;
-import tk.vigaro.helix.Helix;
 import tk.vigaro.helix.Util;
 
-import java.util.Arrays;
+import static tk.vigaro.helix.Helix.admins;
 
 /**
  * Helix
@@ -25,7 +24,7 @@ public class ListenerNotice extends ListenerAdapter {
 
     @Override
     public void onNotice(NoticeEvent event) throws Exception {
-        if (event.getChannel() == null && !event.getUser().getNick().contains(".") && !event.getUser().getNick().endsWith("Serv") && Arrays.asList(Helix.admins).contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
+        if (event.getChannel() == null && !event.getUser().getNick().contains(".") && !event.getUser().getNick().endsWith("Serv") && admins.contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
             event.getBot().sendRaw().rawLine(event.getNotice());
         }
     }

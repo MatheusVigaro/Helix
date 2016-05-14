@@ -10,7 +10,8 @@ import tk.vigaro.helix.Helix;
 import tk.vigaro.helix.Util;
 
 import java.io.*;
-import java.util.Arrays;
+
+import static tk.vigaro.helix.Helix.admins;
 
 /**
  * Helix
@@ -41,7 +42,7 @@ public class ListenerCommandAddCmd extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) throws Exception {
-        if (event.getMessage().startsWith(Helix.botPrefix + Commands.addCmd + " ") && event.getMessage().length() > (Commands.addCmd.length() + 2) && Arrays.asList(Helix.admins).contains(Util.getLogin(event.getUser())) && Util.isVerified(event.getUser())) {
+        if (event.getMessage().startsWith(Helix.botPrefix + Commands.addCmd + " ") && event.getMessage().length() > (Commands.addCmd.length() + 2) && admins.contains(Util.getLogin(event.getUser())) && Util.isVerified(event.getUser())) {
             String s[] = event.getMessage().split(" ", 3);
             if (Helix.hardCommands.contains(s[1].toLowerCase())) {
                 event.respond("Can't override hardcoded commands!");

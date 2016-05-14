@@ -2,10 +2,9 @@ package tk.vigaro.helix.listener;
 
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.PrivateMessageEvent;
-import tk.vigaro.helix.Helix;
 import tk.vigaro.helix.Util;
 
-import java.util.Arrays;
+import static tk.vigaro.helix.Helix.admins;
 
 /**
  * Helix
@@ -25,7 +24,7 @@ public class LIstenerPrivateMessage extends ListenerAdapter {
 
     @Override
     public void onPrivateMessage(PrivateMessageEvent event) throws Exception {
-        if (event.getMessage().contains(" ") && !event.getUser().getNick().contains(".") && !event.getUser().getNick().endsWith("Serv") && Arrays.asList(Helix.admins).contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
+        if (event.getMessage().contains(" ") && !event.getUser().getNick().contains(".") && !event.getUser().getNick().endsWith("Serv") && admins.contains(Util.getLogin(event.getUser()).toLowerCase()) && Util.isVerified(event.getUser())) {
             String m[] = event.getMessage().split(" ", 2);
             event.getBot().sendIRC().message(m[0], m[1]);
         }

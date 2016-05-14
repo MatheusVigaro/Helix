@@ -35,7 +35,7 @@ public class Helix {
     public static JSONObject commands = new JSONObject();
     public static JSONObject seen;
     public static String botPrefix = ".";
-    public static String[] admins = {"vigaro"};
+    public static List<String> admins = new ArrayList<>();
     public static PircBotX helix;
     public static final Character[] valid = {'1', '2', '3', '4', '5','6', '6', '8', '9'};
     public static BackgroundListenerManager backgroundListenerManager = new BackgroundListenerManager();
@@ -62,6 +62,10 @@ public class Helix {
         };
         helix = new PircBotX(new ConfigurationEsperNet().buildConfiguration());
         animeCheckingThread.start();
+        JSONArray a = new JSONArray(properties.getProperty("irc.admins"));
+        for (int i = 0; i < a.length(); i++) {
+            admins.add(a.getString(i));
+        }
         helix.startBot();
 
     }
@@ -113,6 +117,9 @@ public class Helix {
             }
             if (properties.getProperty("waaai.apikey") == null) {
                 writer.println("waaai.apikey=InsertwaaaiAPIKeyHere");
+            }
+            if (properties.getProperty("irc.admins") == null) {
+                writer.println("irc.admins=[\"\"]");
             }
             writer.flush();
             writer.close();
