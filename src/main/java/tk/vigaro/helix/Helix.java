@@ -184,7 +184,7 @@ public class Helix {
                             for (String d : p) {
                                 if (newAnimes.get(a).toLowerCase().contains(d)) i++;
                             }
-                            if (i == p.length)
+                            if (i >= p.length)
                                 Helix.helix.sendIRC().message("MemoServ", "SEND " + u + " A new anime is out, get it now! " + newAnimes.get(a) + " - " + a);
                         }
                     }
