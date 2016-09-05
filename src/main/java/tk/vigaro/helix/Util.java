@@ -60,10 +60,17 @@ public class Util {
         regexMap.put("PT(\\d\\d)S", "00:$1");
         regexMap.put("PT(\\d\\d)M", "$1:00");
         regexMap.put("PT(\\d\\d)H", "$1:00:00");
+        regexMap.put("P(\\d\\d)D", "$1:00:00:00");
         regexMap.put("PT(\\d\\d)M(\\d\\d)S", "$1:$2");
         regexMap.put("PT(\\d\\d)H(\\d\\d)S", "$1:00:$2");
         regexMap.put("PT(\\d\\d)H(\\d\\d)M", "$1:$2:00");
+        regexMap.put("P(\\d\\d)DT(\\d\\d)H", "$1:$2:00:00");
+        regexMap.put("P(\\d\\d)DT(\\d\\d)M", "$1:00:$2:00");
+        regexMap.put("P(\\d\\d)DT(\\d\\d)S", "$1:00:00:$2");
+        regexMap.put("P(\\d\\d)DT(\\d\\d)H(\\d\\d)M", "$1:$2:$3:00");
+        regexMap.put("P(\\d\\d)DT(\\d\\d)H(\\d\\d)S", "$1:$2:00:$3");
         regexMap.put("PT(\\d\\d)H(\\d\\d)M(\\d\\d)S", "$1:$2:$3");
+        regexMap.put("P(\\d\\d)DT(\\d\\d)H(\\d\\d)M(\\d\\d)S", "$1:$2:$3:$4");
 
         String regex2two = "(?<=[^\\d])(\\d)(?=[^\\d])";
         String two = "0$1";
