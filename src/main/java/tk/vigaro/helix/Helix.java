@@ -31,13 +31,13 @@ public class Helix {
 
     public static final NumberFormat numberFormat = NumberFormat.getInstance();
     public static final Properties properties = new Properties();
+    public static final Character[] valid = {'1', '2', '3', '4', '5', '6', '6', '8', '9'};
     public static List<String> hardCommands = new ArrayList<>();
     public static JSONObject commands = new JSONObject();
     public static JSONObject seen;
     public static String botPrefix = ".";
     public static List<String> admins = new ArrayList<>();
     public static PircBotX helix;
-    public static final Character[] valid = {'1', '2', '3', '4', '5','6', '6', '8', '9'};
     public static BackgroundListenerManager backgroundListenerManager = new BackgroundListenerManager();
     public static Map<String, List<String>> animeWatchlist = new HashMap<>();
     public static Map<String, String> recentAnimes = new HashMap<>();
@@ -61,7 +61,7 @@ public class Helix {
             }
         };
         helix = new PircBotX(new ConfigurationEsperNet().buildConfiguration());
-        animeCheckingThread.start();
+//        animeCheckingThread.start();
         JSONArray a = new JSONArray(properties.getProperty("irc.admins"));
         for (int i = 0; i < a.length(); i++) {
             admins.add(a.getString(i));
