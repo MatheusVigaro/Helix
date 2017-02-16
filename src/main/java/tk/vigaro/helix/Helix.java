@@ -42,6 +42,9 @@ public class Helix {
     public static Map<String, List<String>> animeWatchlist = new HashMap<>();
     public static Map<String, String> recentAnimes = new HashMap<>();
     public static List<String> waitingForQuery = new ArrayList<>();
+    public static Map<UUID, String[]> hangman = new HashMap<>();
+    public static List<String> wordList = new ArrayList<>();
+    public static Random random = new Random();
 
     public static void main(String[] args) throws Exception{
         System.setProperty("http.agent", "Wget/1.9.1");
@@ -62,12 +65,26 @@ public class Helix {
         };
         helix = new PircBotX(new ConfigurationEsperNet().buildConfiguration());
 //        animeCheckingThread.start();
+        readWordlist();
         JSONArray a = new JSONArray(properties.getProperty("irc.admins"));
         for (int i = 0; i < a.length(); i++) {
             admins.add(a.getString(i));
         }
         helix.startBot();
 
+    }
+
+    private static void readWordlist() {
+        BufferedReader r = null;
+        try {
+            r = new BufferedReader(new FileReader("wordlist.txt"));
+            String l;
+            while ((l = r.readLine()) != null) {
+                wordList.add(l.toLowerCase());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void lookForAnimes() throws Exception{

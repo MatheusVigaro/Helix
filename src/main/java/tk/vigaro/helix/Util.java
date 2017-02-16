@@ -112,10 +112,18 @@ public class Util {
             String m = Colors.removeFormattingAndColors(event.getNotice()).toLowerCase();
             if (m.startsWith("information on " + nick + " (account ")) {
                 String[] n = m.split(" ");
-                String login = n[n.length-1];
-                return login.substring(0, login.length()-2);
+                String login = n[n.length - 1];
+                return login.substring(0, login.length() - 2);
             } else if (m.startsWith(nick + " is not registered")) return null;
         }
         return null;
+    }
+
+    public static String join(String delimiter, String string) {
+        String result = "";
+        for (char c : string.toCharArray()) {
+            result = result + c + delimiter;
+        }
+        return result.substring(0, result.length() - 1);
     }
 }
