@@ -31,7 +31,7 @@ public class Helix {
 
     public static final NumberFormat numberFormat = NumberFormat.getInstance();
     public static final Properties properties = new Properties();
-    public static final Character[] valid = {'1', '2', '3', '4', '5', '6', '6', '8', '9'};
+    public static final Character[] valid = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
     public static List<String> hardCommands = new ArrayList<>();
     public static JSONObject commands = new JSONObject();
     public static JSONObject seen;
