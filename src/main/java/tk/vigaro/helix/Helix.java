@@ -70,6 +70,7 @@ public class Helix {
         for (int i = 0; i < a.length(); i++) {
             admins.add(a.getString(i));
         }
+        new HTTPServer();
         helix.startBot();
 
     }
